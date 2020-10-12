@@ -25,8 +25,9 @@ async def whatColorImage(request):
         color_thief = ColorThief(input_file)
         # get the dominant color
         dominant_color = color_thief.get_color(quality=1)
+        dominant_color_hex = rgb_to_hex(dominant_color)
 
-        return json({'color': dominant_color})
+        return json({'color': dominant_color_hex})
 
 @app.route('/color/scheme', methods=['POST', 'OPTIONS'])
 async def color_scheme_handler(request):
