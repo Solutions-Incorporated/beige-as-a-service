@@ -1,25 +1,24 @@
 <script lang="ts">
   let files: string[] | Blob[];
-  let statusCode = "";
+  let color = "";
  
   async function handleSubmit() {
     if (files.length > 0) {
       const formData = new FormData();
       formData.append("file", files[0]);
-      console.log(formData)
       const response = await fetch("http://0.0.0.0:8000/color/what", {
         method: "POST",
         body: formData
+      }).then((response) => {
+        return response.json();
       });
 
-      console.log(response);
-
-      statusCode = response.status;
+      color = response.color;
     }
   }
 </script>
  
-{statusCode}
+{color}
 
 <form on:submit|preventDefault={handleSubmit}>
   <label for="file">File</label>
