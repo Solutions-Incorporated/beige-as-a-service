@@ -1,31 +1,48 @@
 <script lang="ts">
+  let disabled = false;
+  let submitted = false;
+	let promise = Promise.resolve([]);
   let files: string[] | Blob[];
-  let hexCode = "";
- 
-  async function handleSubmit() {
+
+  async function uploadFile() {
     if (files.length > 0) {
+      submitted = true;
       const formData = new FormData();
       formData.append("file", files[0]);
+
       const response = await fetch("http://0.0.0.0:8000/color/what", {
         method: "POST",
         body: formData
-      }).then((response) => {
+      })
+      
+      if (response.ok) {
         return response.json();
-      });
-
-      hexCode = response.color;
+      } else {
+        throw new Error("An error has occurred");
+      }
     }
+  }
+
+  async function handleSubmit() {
+    promise = uploadFile()
+    disabled = true
   }
 </script>
 
-{#if !hexCode}
-<form on:submit|preventDefault={handleSubmit}>
-  <input required id="file" type="file" bind:files />
-  <input type="submit" value="Upload file" />
-</form>
+{#if submitted}
+  {#await promise}
+    <p>Doing some quik mafs</p>
+  {:then response}
+    {response.color}
+  {:catch error}
+    <p style="color: red">{error.message}</p>
+  {/await}
 {/if}
 
 
-{#if hexCode}
-{hexCode}
+{#if !submitted}
+<form on:submit|preventDefault={handleSubmit} { disabled }>
+  <input required id="file" type="file" bind:files />
+  <input type="submit" value="Upload file" />
+</form>
 {/if}
