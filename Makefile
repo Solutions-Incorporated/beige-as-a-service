@@ -1,6 +1,6 @@
 MAKEFLAGS += -j2
 
-.PHONY: prepare run
+.PHONY: prepare run client
 
 prepare:
 	pyenv install
