@@ -28,7 +28,7 @@ async def whatColorImage(request):
 
         return json({'color': dominant_color})
 
-@app.post('/color/scheme')
+@app.route('/color/scheme', methods=['POST', 'OPTIONS'])
 async def color_scheme_handler(request):
     color_hex = request.json['color']
     color_name = rgb_to_name(color_hex)
