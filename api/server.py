@@ -5,7 +5,7 @@ from colorthief import ColorThief
 from PIL import ImageColor
 from io import BytesIO
 
-from color import color_hex_to_name, scheme_from_rgb, rgb_to_hex
+from color import color_hex_to_name, scheme_from_rgb, rgb_to_hex, color_from_name
 from PIL import ImageColor
 
 HOST, PORT = '0.0.0.0', 8000
@@ -44,6 +44,10 @@ async def color_scheme_handler(request):
         'scheme': list(mapped_scheme),
     })
 
+@app.route('/color/name/', methods=['POST', 'OPTIONS'])
+async def find_by_name(request):
+    color_name = request.json['name']
+    return json({'color': color_from_name(color_name)})
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)

@@ -33,7 +33,9 @@
   {#await promise}
     <p>Doing some quik mafs</p>
   {:then response}
-    {response.color}
+    <div class="box" style="background-color:{response.color}">
+      {response.color}
+    </div>
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
@@ -46,3 +48,12 @@
   <input type="submit" value="Upload file" />
 </form>
 {/if}
+
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+    }
+</style>
+

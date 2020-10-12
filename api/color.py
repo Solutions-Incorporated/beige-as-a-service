@@ -10,6 +10,14 @@ def build_map():
             color_to_name_map[ImageColor.getrgb(color_hex)] = name
         return color_to_name_map
 
+def build_name_map():
+    with open("rgb.txt") as f:
+        name_to_color_map = {}
+        for line in f:
+            name, color_hex, *_ = line.split("\t")
+            name_to_color_map[name] = color_hex
+        return name_to_color_map
+
 def color_hex_to_name(color_hex):
     target_rgb = ImageColor.getrgb(color_hex)
     closest_color = find_closest_color(target_rgb, COLOR_TO_NAME_MAP.keys())
@@ -20,6 +28,9 @@ def find_closest_color(target_rgb, available_rgb_list):
 
 def rgb_to_hex(rgb):
     return "#{:02x}{:02x}{:02x}".format(*rgb)
+
+def color_from_name(name):
+    return NAME_TO_COLOR_MAP[name]
 
 # Color is expected to be an array of RGB e.g [255,255,255]
 def scheme_from_rgb(color):
@@ -36,3 +47,4 @@ def color_distance(rgb1, rgb2):
     return math.hypot(r2 - r1, g2 - g1, b2 - b1)
 
 COLOR_TO_NAME_MAP = build_map()
+NAME_TO_COLOR_MAP = build_name_map()
