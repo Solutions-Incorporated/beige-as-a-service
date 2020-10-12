@@ -2,11 +2,11 @@ from sanic import Sanic
 from sanic.response import json
 from sanic_cors import CORS, cross_origin
 from colorthief import ColorThief
+from PIL import ImageColor
 from io import BytesIO
 
-from color import rgb_to_name, scheme_from_rgb, rgb_to_hex
+from color import color_hex_to_name, scheme_from_rgb, rgb_to_hex
 from PIL import ImageColor
-
 
 HOST, PORT = '0.0.0.0', 8000
 
@@ -33,11 +33,11 @@ async def whatColorImage(request):
 @app.route('/color/scheme', methods=['POST', 'OPTIONS'])
 async def color_scheme_handler(request):
     color_hex = request.json['color']
-    color_name = rgb_to_name(color_hex)
+    color_name = color_hex_to_name(color_hex)
     color_rgb = ImageColor.getrgb(color_hex)
 
     scheme = scheme_from_rgb(color_rgb)
-    mapped_scheme = map(rgb_to_name, scheme)
+    mapped_scheme = map(color_hex_to_name, scheme)
 
     return json({
         'name': color_name,
