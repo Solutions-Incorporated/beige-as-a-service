@@ -1,11 +1,9 @@
 <script lang="ts">
 	import FileUploader from "./components/FileUploader.svelte";
-
-	export let name: string;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
+	<h1>Beige-as-a-service</h1>
 	
 	<FileUploader />
 </main>
