@@ -4,6 +4,9 @@ from sanic_cors import CORS, cross_origin
 from colorthief import ColorThief
 from io import BytesIO
 
+from color import rgb_to_name, scheme_from_rgb
+
+
 HOST, PORT = '0.0.0.0', 8000
 
 app = Sanic()
@@ -24,6 +27,21 @@ async def whatColorImage(request):
         dominant_color = color_thief.get_color(quality=1)
 
         return json({'color': dominant_color})
+
+@app.post('/color/scheme')
+async def color_scheme_handler(request):
+    color_hex = request.json['color']
+    color_name = rgb_to_name(color_hex)
+    color_rgb = ImageColor.getrgb(color_hex)
+
+    scheme = scheme_from_rgb(color_rgb)
+    mapped_scheme = map(rgb_to_name, scheme)
+
+    return json({
+        'name': color_name,
+        'scheme': list(mapped_scheme),
+    })
+
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)
