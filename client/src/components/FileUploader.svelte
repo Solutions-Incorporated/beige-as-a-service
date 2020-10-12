@@ -1,6 +1,6 @@
 <script lang="ts">
   let files: string[] | Blob[];
-  let color = "";
+  let hexCode = "";
  
   async function handleSubmit() {
     if (files.length > 0) {
@@ -13,15 +13,19 @@
         return response.json();
       });
 
-      color = response.color;
+      hexCode = response.color;
     }
   }
 </script>
- 
-{color}
 
+{#if !hexCode}
 <form on:submit|preventDefault={handleSubmit}>
-  <label for="file">File</label>
   <input required id="file" type="file" bind:files />
   <input type="submit" value="Upload file" />
 </form>
+{/if}
+
+
+{#if hexCode}
+{hexCode}
+{/if}
