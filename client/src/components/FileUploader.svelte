@@ -29,6 +29,12 @@
   }
 </script>
 
+{#if files}
+    {#each files as file}
+        <img src="{URL.createObjectURL(file)}" class="preview" />
+    {/each}
+{/if}
+
 {#if submitted}
   {#await promise}
     <p>Doing some quik mafs</p>
@@ -57,6 +63,10 @@
         height: 100px;
         border: 1px solid #000;
         margin: 0 auto;
+    }
+
+    .preview {
+        max-height: 200px;
     }
 
     .color-name {
