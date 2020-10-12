@@ -5,3 +5,6 @@ prepare:
 
 run:
 	echo 'Loading Beige'
+
+server:
+	cd api && python server.py
