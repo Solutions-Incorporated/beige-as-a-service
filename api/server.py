@@ -4,7 +4,8 @@ from sanic_cors import CORS, cross_origin
 from colorthief import ColorThief
 from io import BytesIO
 
-from color import rgb_to_name, scheme_from_rgb
+from color import rgb_to_name, scheme_from_rgb, rgb_to_hex
+from PIL import ImageColor
 
 
 HOST, PORT = '0.0.0.0', 8000
