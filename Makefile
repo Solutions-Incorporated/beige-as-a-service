@@ -4,6 +4,7 @@ MAKEFLAGS += -j2
 
 prepare:
 	pyenv install
+	cd api && pip install -r requirements.txt
 
 run: server client
 	@echo 'Loading Beige'
