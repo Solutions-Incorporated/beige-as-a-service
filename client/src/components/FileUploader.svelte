@@ -33,9 +33,11 @@
   {#await promise}
     <p>Doing some quik mafs</p>
   {:then response}
-    <div class="box" style="background-color:{response.color}">
+    <div class="color-name">
       {response.color}
     </div>
+
+    <div class="box" style="background-color:{response.color}"></div>
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
@@ -54,6 +56,11 @@
         width: 100px;
         height: 100px;
         border: 1px solid #000;
+        margin: 0 auto;
+    }
+
+    .color-name {
+      padding: 20px;
     }
 </style>
 
