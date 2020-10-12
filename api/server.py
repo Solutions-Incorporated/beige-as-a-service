@@ -3,6 +3,8 @@ from sanic.response import json
 from colorthief import ColorThief
 from io import BytesIO
 
+from color import rgb_to_name
+
 HOST, PORT = '0.0.0.0', 8000
 
 app = Sanic()
@@ -22,6 +24,15 @@ async def whatColorImage(request):
         dominant_color = color_thief.get_color(quality=1)
 
         return json({'color': dominant_color})
+
+@app.post('/color/scheme')
+async def color_scheme_handler(request):
+    color_name = rgb_to_name(request.json['color'])
+
+    return json({
+        'name': color_name,
+        'scheme': [],
+    })
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)
