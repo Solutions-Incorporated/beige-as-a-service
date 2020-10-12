@@ -90,6 +90,12 @@
     }
 </style>
 
+{#if files}
+    {#each files as file}
+        <img src="{URL.createObjectURL(file)}" class="preview" />
+    {/each}
+{/if}
+
 {#if submitted}
   {#await promise}
     <p>Calculating all of the colors for you...</p>

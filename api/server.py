@@ -7,6 +7,7 @@ from io import BytesIO
 
 from color import color_hex_to_name, scheme_from_rgb, rgb_to_hex, color_from_name
 from PIL import ImageColor
+from celeb import remove_boring_part
 
 HOST, PORT = '0.0.0.0', 8000
 
@@ -40,7 +41,7 @@ async def color_scheme_handler(request):
     mapped_scheme = map(color_hex_to_name, scheme)
 
     return json({
-        'name': color_name,
+        'name': remove_boring_part(color_name),
         'scheme': list(mapped_scheme),
     })
 
